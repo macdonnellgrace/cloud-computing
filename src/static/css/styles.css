@@ -1,21 +1,21 @@
 body {
-    background-color: #f4f4f4;
+    background-color: #ffe6e6;
     margin-top: 50px;
-    font-family: 'Lato';
+    font-family: system-ui;
 }
 
 .item {
     background-color: white;
     padding: 15px;
     margin-bottom: 15px;
-    border: transparent;
+    border: hidden;
     border-radius: 5px;
-    box-shadow: 0 0 1em #ccc;
+    box-shadow: 0 0 1em #4d0000;
     transition: all .2s ease-in-out;
 }
 
 .item:hover {
-    box-shadow: 0 0 1em #aaa;
+    box-shadow: 0 0 1em #ff3300;
 }
 
 .item.completed {
@@ -35,5 +35,11 @@ body {
 }
 
 button:focus {
-    border: 1px solid #333;
+    border: 1px hidden #ff;
+}
+
+h2 {
+	color: #b30000;
+	text-align: center;
+	text-decoration: underline;
 }
