@@ -144,6 +144,7 @@ function ItemDisplay({ item, onItemUpdate, onItemRemoval }) {
                         className="toggles"
                         size="sm"
                         variant="link"
+			disabled={true} // disables
                         onClick={toggleCompletion}
                         aria-label={
                             item.completed
@@ -165,6 +166,7 @@ function ItemDisplay({ item, onItemUpdate, onItemRemoval }) {
                     <Button
                         size="sm"
                         variant="link"
+			disabled={true} // disable
                         onClick={removeItem}
                         aria-label="Remove Item"
                     >
