@@ -1,9 +1,10 @@
 services:
   app:
-    image: node:18-alpine
+    container_name: read_write_app
+    image: c21307546/azureclouddocker
     command: sh -c "yarn install && yarn run dev"
     ports:
-      - 127.0.0.1:80:3000
+      - 80:3000
     working_dir: /app
     volumes:
       - ./:/app
@@ -12,14 +13,27 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: todos
-
   mysql:
     image: mysql:8.0
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: todos
-
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=todos
+  app2:
+    container_name: read_only_app
+    image: readonly-getting-started
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 8080:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
 volumes:
   todo-mysql-data:
+      
