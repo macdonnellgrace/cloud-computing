@@ -1,7 +1,7 @@
 services:
   app:
     container_name: read_write_app
-    image: c21307546/azureclouddocker
+    image: c21307546/getting-started
     command: sh -c "yarn install && yarn run dev"
     ports:
       - 80:3000
