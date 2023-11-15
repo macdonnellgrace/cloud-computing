@@ -1,6 +1,5 @@
 services:
   app:
-    container_name: read_write_app
     image: node:18-alpine
     command: sh -c "yarn install && yarn run dev"
     ports:
@@ -23,7 +22,6 @@ services:
       MYSQL_DATABASE: todos
 
   app2:
-    container_name: read_only_app
     image: node:18-alpine
     command: sh -c "yarn install && yarn run dev"
     ports:
