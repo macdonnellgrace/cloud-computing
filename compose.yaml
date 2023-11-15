@@ -22,7 +22,7 @@ services:
       - MYSQL_DATABASE=todos
   app2:
     container_name: read_only_app
-    image: readonly-getting-started
+    image: c21307546/readonly-getting-started:hello2
     command: sh -c "yarn install && yarn run dev"
     ports:
       - 8080:3000
