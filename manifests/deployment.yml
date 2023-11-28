@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: macdonnellgracecloudcomputing 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: macdonnellgracecloudcomputing
+  template:
+    metadata:
+      labels:
+        app: macdonnellgracecloudcomputing 
+    spec:
+      containers:
+        - name: macdonnellgracecloudcomputing 
+          image: lab5reg.azurecr.io/macdonnellgracecloudcomputing
+          ports:
+          - containerPort: 3000
