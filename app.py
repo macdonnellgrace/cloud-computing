@@ -70,6 +70,32 @@ def delete():
         return '{"Result": "Error", "Message": "' + str(e) + '"}'
 
 
+@app.route("/default")  # Default - Show Data
+def read():
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute('''SELECT * FROM students''')
+        rv = cur.fetchall()
+        Results = []
+        for row in rv:
+            Result = {}
+            Result['Name'] = row[0].replace('\n', ' ')
+            Result['Email'] = row[1]
+            Result['ID'] = row[2]
+            Results.append(Result)
+        response = {'Results': Results, 'count': len(Results)}
+        ret = app.response_class(
+            response=json.dumps(response),
+            status=200,
+            mimetype='application/json'
+        )
+        return ret
+    except Exception as e:
+        return '{"Result": "Error", "Message": "' + str(e) + '"}'
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='8080')
