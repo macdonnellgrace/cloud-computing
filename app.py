@@ -44,9 +44,10 @@ def add():
 @app.route("/update", methods=['PUT'])  # Update Student
 def update():
     try:
-        id = int(request.form.get('id'))
-        name = request.json.get('name')
-        email = request.json.get('email')
+        data = request.get_json()
+        id = data.get('id')
+        name = data.get('name')
+        email = data.get('email')
 
         query = '''UPDATE students SET studentName = '{}', email = '{}' WHERE studentID = {} ;'''.format(name, email, id)
         print("Received Update Request. ID:", id, "Name:", name, "Email:", email)
@@ -56,11 +57,10 @@ def update():
     except Exception as e:
         return '{"Result": "Error", "Message": "' + str(e) + '"}'
 
-@app.route("/delete", methods=['DELETE'])  # Delete Student
+@app.route("/delete", methods=['DELETE'])  
 def delete():
+    name = request.json.get('name')
     try:
-        name = request.args.get('deleteName')
-
         query = '''DELETE FROM students WHERE studentName='{}';'''.format(name)
         success = execute_query(query)
         print(success)
@@ -69,33 +69,6 @@ def delete():
     except Exception as e:
         return '{"Result": "Error", "Message": "' + str(e) + '"}'
 
-
-@app.route("/default")  # Default - Show Data
-def read():
-    try:
-        cur = mysql.connection.cursor()
-        cur.execute('''SELECT * FROM students''')
-        rv = cur.fetchall()
-        Results = []
-        for row in rv:
-            Result = {}
-            Result['Name'] = row[0].replace('\n', ' ')
-            Result['Email'] = row[1]
-            Result['ID'] = row[2]
-            Results.append(Result)
-        response = {'Results': Results, 'count': len(Results)}
-        ret = app.response_class(
-            response=json.dumps(response),
-            status=200,
-            mimetype='application/json'
-        )
-        return ret
-    except Exception as e:
-        return '{"Result": "Error", "Message": "' + str(e) + '"}'
-    
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 
 if __name__ == "__main__":
